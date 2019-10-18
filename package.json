@@ -56,6 +56,22 @@
   "main": "./app/main.prod.js",
   "build": {
     "productName": "ElectronReact",
+    "extraResources": [
+      {
+        "from": "app/archives",
+        "to": "archives",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "app/xsl",
+        "to": "xsl",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
     "appId": "org.develar.ElectronReact",
     "files": [
       "app/dist/",
@@ -274,7 +290,8 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "source-map-support": "^0.5.9"
+    "source-map-support": "^0.5.9",
+    "xml2js": "^0.4.22"
   },
   "devEngines": {
     "node": ">=7.x",
