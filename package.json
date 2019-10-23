@@ -1,6 +1,6 @@
 {
   "name": "erb-typescript-example",
-  "productName": "ElectronReact",
+  "productName": "Sifriah",
   "version": "0.17.1",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
@@ -55,7 +55,7 @@
   },
   "main": "./app/main.prod.js",
   "build": {
-    "productName": "ElectronReact",
+    "productName": "Sifriah",
     "extraResources": [
       {
         "from": "app/archives",
@@ -72,7 +72,7 @@
         ]
       }
     ],
-    "appId": "org.develar.ElectronReact",
+    "appId": "com.dfa.Sifriah",
     "files": [
       "app/dist/",
       "app/app.html",

@@ -11,7 +11,6 @@ interface NODE {
 }
 
 
-
 const recursiveNode = (node: NODE, onLoadFile, toggleNode, openedNode = {}) => {
   const handleToggle = nodeClicked => () => {
     //console.warn(nodeClicked)
@@ -54,7 +53,7 @@ const recursiveNode = (node: NODE, onLoadFile, toggleNode, openedNode = {}) => {
 
 const Menu = ({ onLoadFile }) => {
   const [menu, setMenu] = useState(null);
-  const [openedNode, setOpenedNode] = useState({'ובלכתך בדרך':true});
+  const [openedNode, setOpenedNode] = useState({ 'ובלכתך בדרך': true });
 
   useEffect(() => {
     if (!menu) {
@@ -87,13 +86,13 @@ const HomePage = function(props: Props<any>) {
         const indexChapitre = document.getElementById('indexChapitre');
         indexChapitre.innerHTML = '';
 
-        Array.prototype.map.call(listChapitres,(node:any)=>{
-          node.id = node.id && node.id.trim()
+        Array.prototype.map.call(listChapitres, (node: any) => {
+          node.id = node.id && node.id.trim();
         });
 
-        let listNode = Array.prototype.map.call(listChapitres,(node:Node)=>{
-          let n:any = node.cloneNode(true)
-          n.href = '#'+n.id;
+        let listNode = Array.prototype.map.call(listChapitres, (node: Node) => {
+          let n: any = node.cloneNode(true);
+          n.href = '#' + n.id;
           n.id = null;
           delete n.id;
           return n;
@@ -121,10 +120,11 @@ const HomePage = function(props: Props<any>) {
         <div style={{
           height: '100%',
           minHeight: '100%',
-          width:'50%',
+          width: '50%',
           overflow: 'scroll',
-          background: '#060069',
-          padding: 5
+          background: '#002a52',
+          paddingLeft: 5,
+          paddingRight: 5
         }}>
           <Menu onLoadFile={onLoadFile}/>
         </div>
@@ -133,16 +133,23 @@ const HomePage = function(props: Props<any>) {
              style={{
                fontSize: 20,
                height: '100%',
-               width:'50%',
+               width: '50%',
                overflow: 'scroll',
-               background: '#094b69',
-               padding: 5
+               background: '#004169',
+               paddingLeft: 5,
+               paddingRight: 5,
              }}>
         </div>
       </nav>
       <main
         id="content"
-        style={{ height: '100%', overflow: 'scroll', textAlign: 'justify', padding: 20 }}
+        style={{
+          height: '100%',
+          overflow: 'scroll',
+          textAlign: 'justify',
+          paddingLeft: 20,
+          paddingRight: 20,
+        }}
       >
       </main>
     </div>
