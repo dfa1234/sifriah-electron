@@ -10,7 +10,6 @@ interface NODE {
 
 const RecursiveNode = (node: NODE, onLoadFile, toggleNode, openedNode = {}) => {
   const handleToggle = nodeClicked => () => {
-    //console.warn(nodeClicked)
     toggleNode(nodeClicked.name);
     if (nodeClicked && nodeClicked.nid && nodeClicked.nid.toString().length) {
       onLoadFile(nodeClicked.nid.toString());

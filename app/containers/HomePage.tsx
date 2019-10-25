@@ -8,28 +8,39 @@ const styles = require('./HomePage.css');
 
 const HomePage = function() {
 
-  const [activeMefarchim,setActiveMefarchim] = useState([1,2]);
-  const [activeNid,setActiveNid] = useState(1);
+  const [activeMefarchim, setActiveMefarchim] = useState([1]);
+  const [activeChapter, setActiveChapter] = useState(null);
+  const [activeNid, setActiveNid] = useState(1);
+  const [availablePid, setActivePid] = useState([]);
+  const [availableChapters, setAvailableChapters] = useState([]);
 
   useEffect(() => {
-    loadXML(`${activeNid.toString()}.xml`, 'content', activeMefarchim);
-  }, [activeNid,activeMefarchim]);
+    loadXML(`${activeNid.toString()}.xml`, 'content', activeMefarchim, activeChapter)
+      .then(({pid,chapters}) => {
+        pid && setActivePid(pid);
+        chapters && setAvailableChapters(chapters);
+      })
+  }, [activeNid, activeMefarchim, activeChapter]);
 
   const onLoadFile = nid => {
+    setActiveChapter(null);
     setActiveNid(nid);
   };
 
-  const onChangeCheckbox = (index) => (e)=>{
-    let clone = activeMefarchim.slice();
-    let found = clone.findIndex(i => i===index);
-    if(found >=0){
-      clone.splice(found,1)
-    }else{
-      clone.push(index)
-    }
-    setActiveMefarchim(clone)
+  const onClickChapter = (chapter:string) => (event) => {
+    setActiveChapter(chapter);
   };
 
+  const onChangeCheckbox = (index) => (event) => {
+    let clone = activeMefarchim.slice();
+    let found = clone.findIndex(i => i === index);
+    if (found >= 0) {
+      clone.splice(found, 1);
+    } else {
+      clone.push(index);
+    }
+    setActiveMefarchim(clone);
+  };
 
   return (
     <div dir="rtl" className={styles.windowContainer}>
@@ -39,10 +50,22 @@ const HomePage = function() {
         </div>
 
         <div id='middlePanel' className={styles.middlePanel}>
-          <div id="indexChapitre" className={styles.indexChapitre}></div>
+          <div id="indexChapitre" className={styles.indexChapitre}>
+            {availableChapters && availableChapters.map(chapter =>
+              <a onClick={onClickChapter(chapter)}
+                style={{color:activeChapter === chapter ? 'yellow':'white'}}
+              >
+                {chapter}
+              </a>)}
+            {/*href={'#'+chapter}*/}
+          </div>
           <div id="comments" className={styles.comments}>
-            {mefarchimArray.map((m, index) => <span key={index} style={{ display: 'block' }}>
-              <input type="checkbox" checked={activeMefarchim.indexOf(index) >= 0} onChange={onChangeCheckbox(index)}/> {m} {index}
+            {mefarchimArray.map((m, index) =>
+              availablePid.indexOf(index) > -1 &&
+              <span key={index}
+                    style={{ display: 'block' }}>
+              <input type="checkbox" checked={activeMefarchim.indexOf(index) >= 0}
+                     onChange={onChangeCheckbox(index)}/> {m}
             </span>)}
           </div>
         </div>

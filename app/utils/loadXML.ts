@@ -1,32 +1,26 @@
 import { loadFile } from './loadFile';
 
-export const loadXML = (fileName:string, divContentId:string, activeMefarchim:number[]) =>
-  loadFile(fileName,activeMefarchim).then((docFragment: DocumentFragment) => {
+export const loadXML = (fileName:string, divContentId:string, activeMefarchim:number[], activeChapter:string = null) =>
+  loadFile(fileName,activeMefarchim,activeChapter).then(({doc,pid}) => {
     const content = document.getElementById(divContentId);
     if (content) {
       content.innerHTML = '';
-      content.appendChild(docFragment);
-      let listChapitres = content.querySelectorAll('a[id]');
-      const indexChapitre = document.getElementById('indexChapitre');
-      indexChapitre.innerHTML = '';
+      content.appendChild(doc);
+      const listChapitres = content.querySelectorAll('a[id]');
+      const chapters = Array.prototype.map.call(listChapitres, (node: any) => node.id && node.id.trim());
 
-      Array.prototype.map.call(listChapitres, (node: any) => {
-        node.id = node.id && node.id.trim();
-      });
+      if(activeChapter){
+        return {pid};
+      }else{
+        return {pid,chapters};
+      }
 
-      let listNode = Array.prototype.map.call(listChapitres, (node: Node) => {
-        let n: any = node.cloneNode(true);
-        n.href = '#' + n.id;
-        n.id = null;
-        delete n.id;
-        return n;
-      });
-
-      indexChapitre.append(...listNode);
     } else {
       console.error('no divContentId '+ divContentId);
+      return {pid:null,chapters:null};
     }
   }, error => {
     console.error(fileName, error);
+    return {pid:null,chapters:null};
   });
 
