@@ -23,6 +23,7 @@ const HomePage = function() {
   }, [activeNid, activeMefarchim, activeChapter]);
 
   const onLoadFile = nid => {
+    setAvailableChapters([]);
     setActiveChapter(null);
     setActiveNid(nid);
   };
@@ -53,7 +54,11 @@ const HomePage = function() {
           <div id="indexChapitre" className={styles.indexChapitre}>
             {availableChapters && availableChapters.map(chapter =>
               <a onClick={onClickChapter(chapter)}
-                style={{color:activeChapter === chapter ? 'yellow':'white'}}
+                 key={chapter}
+                style={{
+                  backgroundColor:activeChapter === chapter ? '#505154':'transparent',
+                }}
+                 className={styles.linkChapter}
               >
                 {chapter}
               </a>)}

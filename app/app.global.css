@@ -20,6 +20,10 @@ body {
   overflow-y: hidden;
 }
 
+div {
+  margin: 0;
+}
+
 h2 {
   margin: 0;
   font-size: 22px;

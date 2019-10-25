@@ -97,7 +97,6 @@ const getParser = (activeMefarchim: number[] = [], activeChapter: string = null)
 
 
 export const loadFile = (file: string, activeMefarchim: number[], activeChapter: string): Promise<{ doc: DocumentFragment, pid: string[] }> => {
-  console.log(file,activeMefarchim,activeChapter);
   return new Promise((resolve, reject) => {
     const filePath = path.join(ROOT, '..', 'archives', file);
     fs.readFile(filePath, 'utf8', (err, data2) => {
