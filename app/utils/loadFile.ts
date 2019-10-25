@@ -70,21 +70,26 @@ const mefarchimObject = {
 export const mefarchimArray = Object.assign([],mefarchimObject);
 
 
-const getParser = () =>
+const getParser = (activeMefarchim:number[]) =>
   new Promise<XSLTProcessor>((resolve, reject) => {
     const filePathXSL = path.join(ROOT, '..', 'xsl', 'displaybook1.xsl');
+
+    let listPids = '';
+    activeMefarchim.forEach(i=> listPids = listPids + ' ' + i);
+    listPids = listPids.trim();
+
     fs.readFile(filePathXSL, 'utf8', (err, data) => {
       if (err) reject(err);
       const xsl = new DOMParser().parseFromString(data, 'application/xml');
       const xsltProcessor = new XSLTProcessor();
       xsltProcessor.clearParameters();
-      xsltProcessor.setParameter(null,'listPids','1 2');
+      xsltProcessor.setParameter(null,'listPids',listPids);
       xsltProcessor.importStylesheet(xsl);
       resolve(xsltProcessor);
     });
   });
 
-export const loadFile = file => {
+export const loadFile = (file:string,activeMefarchim:number[]) => {
   return new Promise((resolve, reject) => {
     const filePath = path.join(ROOT, '..', 'archives', file);
     fs.readFile(filePath, 'utf8', (err, data2) => {
@@ -93,7 +98,7 @@ export const loadFile = file => {
         .replace('<?xml version="1.0" ?>', '')
         .replace('<?xml version="1.0"?>', '');
       const xml = new DOMParser().parseFromString(data2, 'application/xml');
-      getParser().then(xsltProcessor => {
+      getParser(activeMefarchim).then(xsltProcessor => {
         const resultDocument = xsltProcessor.transformToFragment(xml, document);
         if(resultDocument.textContent.includes('This page contains the following errors')){
           reject(resultDocument.textContent)

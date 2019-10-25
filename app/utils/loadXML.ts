@@ -1,7 +1,7 @@
 import { loadFile } from './loadFile';
 
-export const loadXML = (fileName:string, divContentId:string) =>
-  loadFile(fileName).then((docFragment: DocumentFragment) => {
+export const loadXML = (fileName:string, divContentId:string, activeMefarchim:number[]) =>
+  loadFile(fileName,activeMefarchim).then((docFragment: DocumentFragment) => {
     const content = document.getElementById(divContentId);
     if (content) {
       content.innerHTML = '';
