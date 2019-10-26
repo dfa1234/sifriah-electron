@@ -10,23 +10,8 @@
     <xsl:variable name="listPids" select="' 1 2 3 '" /> -->
   <xsl:param name="listPids"/>
   <xsl:template match="/book">
-    <html>
-      <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>
-          <xsl:value-of select="chap/@n"/>
-        </title>
-        <style type="text/css">
-          body {text-align: right; font-size:100%;}
-          p.p1{font-family:"Times New Roman", Times, serif; font-size:1.5em;}
-          p.p2{font-family:"Times New Roman", Times, serif;}
 
-          blueFont
-          {color:#000066;}
-        </style>
-      </head>
-      <body>
-        <span dir="rtl">
+
           <h1>
             <xsl:value-of select="@n"/>
           </h1>
@@ -288,9 +273,7 @@
               </xsl:for-each>
             </xsl:for-each>
           </xsl:for-each>
-        </span>
-      </body>
-    </html>
+
   </xsl:template>
 
 
