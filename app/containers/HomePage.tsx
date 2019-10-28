@@ -47,6 +47,10 @@ const HomePage = function() {
             <ListComments activePid={activePid}
                           availablePid={availablePid}
                           onChangeActivePid={pid => setActivePid(pid)}/>
+
+            {/*<Link to={routes.COUNTER}>*/}
+            {/*  <i className="fa fa-code fa-3x" />*/}
+            {/*</Link>*/}
           </div>
         </div>
 
