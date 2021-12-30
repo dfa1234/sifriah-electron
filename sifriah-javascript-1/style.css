@@ -1,0 +1,17 @@
+#content {
+    background: whitesmoke;
+    text-align: right;
+}
+
+#content  p.p1 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.5em;
+}
+
+#content  p.p2 {
+    font-family: "Times New Roman", Times, serif;
+}
+
+#content  .blueFont {
+    color: #000066;
+}

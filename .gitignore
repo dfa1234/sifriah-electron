@@ -51,4 +51,6 @@ main.js.map
 npm-debug.log.*
 
 
+##########################################################
+#Archive xml need to be but in ./app/archives folder
 *.xml
